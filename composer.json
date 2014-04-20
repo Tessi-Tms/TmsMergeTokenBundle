@@ -1,7 +1,7 @@
 {
-    "name": "tms/merge-field-bundle",
+    "name": "tms/merge-tag-bundle",
     "type": "symfony-bundle",
-    "description": "TMS MergeFieldBundle",
+    "description": "TMS MergeTagBundle",
     "keywords": [],
     "license": "MIT",
     "authors": [
@@ -19,8 +19,8 @@
         "twig/twig":                           "*"
     },
     "autoload": {
-        "psr-0": { "Tms\\Bundle\\MergeFieldBundle": "" }
+        "psr-0": { "Tms\\Bundle\\MergeTagBundle": "" }
     },
-    "target-dir": "Tms/Bundle/MergeFieldBundle",
+    "target-dir": "Tms/Bundle/MergeTagBundle",
     "minimum-stability": "dev"
 }
