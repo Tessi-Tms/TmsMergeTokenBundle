@@ -1,6 +1,6 @@
 <?php
 
-namespace Tms\Bundle\MergeFieldBundle\DependencyInjection;
+namespace Tms\Bundle\MergeTagBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('tms_merge_field');
+        $rootNode = $treeBuilder->root('tms_merge_tag');
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for

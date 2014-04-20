@@ -1,7 +1,7 @@
 TmsMergeFieldBundle
 ===================
 
-Symfony2's TMS Merge Field Bundle.
+Symfony2's TMS Merge Tag Bundle.
 
 
 Installation
@@ -13,12 +13,12 @@ Add dependencies in your `composer.json` file:
     ...,
     {
         "type": "vcs",
-        "url": "https://github.com/Tessi-Tms/TmsMergeFieldBundle.git"
+        "url": "https://github.com/Tessi-Tms/TmsMergeTagBundle.git"
     }
 ],
 "require": {
     ...,
-    "tms/merge-field": "dev-master"
+    "tms/merge-tag": "dev-master"
 }
 ```
 
@@ -36,7 +36,7 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
-        new Tms\Bundle\MergeFieldBundle\TmsMergeFieldBundle(),
+        new Tms\Bundle\MergeTagBundle\TmsMergeTagBundle(),
     );
 }
 ```

@@ -1,5 +1,5 @@
 <?php
-namespace Tms\Bundle\MergeFieldBundle\DependencyInjection;
+namespace Tms\Bundle\MergeTagBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class TmsMergeFieldExtension extends Extension
+class TmsMergeTagExtension extends Extension
 {
     /**
      * {@inheritDoc}
