@@ -1,1 +1,44 @@
 services:
+    tms_merge_tag.tokenizer:
+        class: Tms\Bundle\TmsMergeTagBundle\Tokenizer
+        arguments: [@tms_merge_tag.processor_handler]
+
+    tms_merge_tag.processor_handler:
+        class: Tms\Bundle\TmsMergeTagBundle\Processor\ProcessorHandler
+
+    # Processors
+    tms_merge_tag.processor.directory:
+        class: Tms\Bundle\TmsMergeTagBundle\Processor\DirectoryProcessor
+        arguments: []
+        tags: 
+            - { name: tms_merge_tag.processor, alias: "Directory" }
+
+    tms_merge_tag.processor.document:
+        class: Tms\Bundle\TmsMergeTagBundle\Processor\DocumentProcessor
+        arguments: []
+        tags: 
+            - { name: tms_merge_tag.processor, alias: "Document" }
+
+    tms_merge_tag.processor.form_field:
+        class: Tms\Bundle\TmsMergeTagBundle\Processor\FormFieldProcessor
+        arguments: []
+        tags: 
+            - { name: tms_merge_tag.processor, alias: "FormField" }
+
+    tms_merge_tag.processor.object:
+        class: Tms\Bundle\TmsMergeTagBundle\Processor\ObjectProcessor
+        arguments: []
+        tags: 
+            - { name: tms_merge_tag.processor, alias: "Object" }
+
+    tms_merge_tag.processor.route:
+        class: Tms\Bundle\TmsMergeTagBundle\Processor\RouteProcessor
+        arguments: []
+        tags: 
+            - { name: tms_merge_tag.processor, alias: "Route" }
+
+    tms_merge_tag.processor.value:
+        class: Tms\Bundle\TmsMergeTagBundle\Processor\ValueProcessor
+        arguments: []
+        tags: 
+            - { name: tms_merge_tag.processor, alias: "Value" }
