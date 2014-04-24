@@ -10,7 +10,7 @@ use Tms\Bundle\MergeTagBundle\Processor\ProcessorHandler;
 
 class Tokenizer
 {
-    public static $pattern    = '#\%[a-z_-]*\.[a-z_-]*(\.\{.*\})?\%#i';
+    public static $pattern = '#\%(?P<type>[a-z_-]+)\.(?P<field>[a-z_-]+)(\.(?P<options>\{.*\}))?\%#i';
 
     /**
      * Constructor
@@ -36,17 +36,14 @@ class Tokenizer
      * @param  string $text
      * @return array all the finding tokens
      */
-    public function tokenize($text)
+    public static function tokenize($text)
     {
         $matches = array();
-        $isMatched = preg_match(self::$pattern, $text, $matches);
+        $countMatched = preg_match_all(self::$pattern, $text, $matches, PREG_SET_ORDER);
 
-        if (false === $isMatched) {
+        if (false === $countMatched) {
             throw new \Exception('Tokenization error');
         }
-
-        var_dump($matches); die('good');
-        unset($matches[0]);
 
         return $matches;
     }
@@ -59,7 +56,7 @@ class Tokenizer
      */
     public function merge($text)
     {
-        $tokens = $this->tokenize($text);
+        $tokens = self::tokenize($text);
         $tags   = array();
         foreach($tokens as $token) {
             $tags[$token] = $this->getProcessorHandler()->process($token);

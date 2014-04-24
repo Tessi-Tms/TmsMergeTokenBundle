@@ -10,4 +10,8 @@ use Tms\Bundle\MergeTagBundle\Processor\ValueProcessor;
 
 class ValueProcessorTest extends \PHPUnit_Framework_TestCase
 {
+    public function testProcessTag()
+    {
+        $this->assertEquals(true, true);
+    }
 }

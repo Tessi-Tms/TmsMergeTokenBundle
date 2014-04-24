@@ -10,29 +10,35 @@ use Tms\Bundle\MergeTagBundle\Model\Tag;
 
 abstract class AbstractProcessor implements ProcessorInterface
 {
-    public static $pattern = '#\%?P<type>([a-z_-]*)\.?P<field>([a-z_-]*)(\.?P<options>(\{.*\}))?\%#i';
-
     /**
      * Create a Tag from a given token
      *
-     * @param  $token
+     * @param  array $token ex: array('type' => TYPE, 'field' => FIELD, ['options' => json])
      * @return Tag
      */
     public static function createTag($token)
     {
-        $matches = array();
-        $isMatched = preg_match(self::$pattern, $token, $matches);
-
-        if (false === $isMatched) {
-            throw new \Exception('Tag extraction error');
+        if (!isset($token['type'])) {
+            throw new \Exception('Tag creation error: missing type');
         }
 
-        var_dump($matches); die('good');
-        $type    = $matches[1];
-        $field   = $matches[2];
-        $options = isset($matches[3]) ? json_decode($matches[3], true) : null;
+        if (!isset($token['field'])) {
+            throw new \Exception('Tag creation error: missing field');
+        }
 
-        return new Tag($type, $field, $options);
+        $options = array();
+        if (isset($token['options'])) {
+            $options = json_decode($token['options'], true);
+            if (null === $options) {
+                throw new \Exception('Tag creation error: wrong options');
+            }
+        }
+
+        return new Tag(
+            $token['type'],
+            $token['field'],
+            $options
+        );
     }
 
     /**
