@@ -7,6 +7,12 @@ services:
         class: Tms\Bundle\TmsMergeTokenBundle\Processor\ProcessorHandler
 
     # Processors
+    tms_merge_token.processor.arithmetic:
+        class: Tms\Bundle\TmsMergeTokenBundle\Processor\ArithmeticProcessor
+        arguments: []
+        tags: 
+            - { name: tms_merge_token.processor, alias: "Arithmetic" }
+
     tms_merge_token.processor.directory:
         class: Tms\Bundle\TmsMergeTokenBundle\Processor\DirectoryProcessor
         arguments: []
@@ -37,8 +43,3 @@ services:
         tags: 
             - { name: tms_merge_token.processor, alias: "Route" }
 
-    tms_merge_token.processor.value:
-        class: Tms\Bundle\TmsMergeTokenBundle\Processor\ValueProcessor
-        arguments: []
-        tags: 
-            - { name: tms_merge_token.processor, alias: "Value" }

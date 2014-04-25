@@ -14,7 +14,8 @@ class TokenTest extends \PHPUnit_Framework_TestCase
     public function testConstructWithoutOptions()
     {
         $token = new Token(array(
-            'type' => 'Type',
+            '0'     => '%Type.Field%',
+            'type'  => 'Type',
             'field' => 'Field'
         ));
 
@@ -27,6 +28,7 @@ class TokenTest extends \PHPUnit_Framework_TestCase
     public function testConstructWithOptions()
     {
         $token = new Token(array(
+            '0'       => '%Type.Field%',
             'type'    => 'Type',
             'field'   => 'Field',
             'options' => '{"key": "value"}'
@@ -42,12 +44,13 @@ class TokenTest extends \PHPUnit_Framework_TestCase
     {
         try {
             $token = new Token(array(
+                '0'       => '%Type.Field%',
                 'type'    => 'Type',
                 'field'   => 'Field',
                 'options' => '{"key" ... "value"}'
             ));
 
-            $this->fail("Exception not throw");
+            $this->fail("TokenException not throw");
         } catch (TokenException $e) {
             $this->assertTrue(true);
         }

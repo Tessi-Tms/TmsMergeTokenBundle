@@ -7,6 +7,7 @@
 namespace Tms\Bundle\MergeTokenBundle\Processor;
 
 use Tms\Bundle\MergeTokenBundle\Model\Token;
+use Tms\Bundle\MergeTokenBundle\Exception\TokenException;
 
 abstract class AbstractProcessor implements ProcessorInterface
 {
@@ -16,11 +17,7 @@ abstract class AbstractProcessor implements ProcessorInterface
     public function process($tokenRaw)
     {
         $token = new Token($tokenRaw);
-        try {
-            $token->setValue($this->processToken($token));
-        } catch (\Exception $e) {
-            die('WTF');
-        }
+        $token->setValue($this->processToken($token));
 
         return $token;
     }
@@ -30,6 +27,8 @@ abstract class AbstractProcessor implements ProcessorInterface
      *
      * @param  Token $token
      * @return mixed The token value
+     * @throw  Tms\Bundle\MergeTokenBundle\Exception\TokenException
+     * @throw  Tms\Bundle\MergeTokenBundle\Exception\ProcessorException
      */
     abstract public function processToken(Token $token);
 }

@@ -23,7 +23,7 @@ class Token
      */
     public function __construct($raw)
     {
-        $this->raw = $raw;
+        $this->raw = $raw[0];
 
         if (!isset($raw['type'])) {
             throw new TokenException('Missing raw type');
@@ -85,6 +85,28 @@ class Token
     public function getOptions()
     {
         return $this->options;
+    }
+
+    /**
+     * Get Option
+     *
+     * @param  string     $key
+     * @param  mixed|null $default The default value to return if the key is not found
+     * @return mixed
+     */
+    public function getOption($key, $default = null)
+    {
+        if (!isset($this->options[$key])) {
+            if (null === $default) {
+                throw new TokenException(sprintf(
+                    'Undefined option %s',
+                    $key
+                ));
+            }
+            return $default;
+        }
+
+        return $this->options[$key];
     }
 
     /**

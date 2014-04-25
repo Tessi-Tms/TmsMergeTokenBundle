@@ -8,13 +8,13 @@ namespace Tms\Bundle\MergeTokenBundle\Processor;
 
 use Tms\Bundle\MergeTokenBundle\Model\Token;
 
-class ValueProcessor extends AbstractProcessor
+class DummyProcessor extends AbstractProcessor
 {
     /**
      * {@inheritdoc}
      */
     public function processToken(Token $token)
     {
-        die('TODO: DirectoryProcessor');
+        return null;
     }
 }

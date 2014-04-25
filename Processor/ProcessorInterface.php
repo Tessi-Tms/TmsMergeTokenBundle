@@ -15,6 +15,7 @@ interface ProcessorInterface
      *
      * @param  string  $tokenRaw
      * @return Token   The processed token
+     * @throw  Tms\Bundle\MergeTokenBundle\Exception\TokenException
      */
     public function process($tokenRaw);
 }

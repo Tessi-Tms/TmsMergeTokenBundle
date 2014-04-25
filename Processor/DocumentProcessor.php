@@ -15,6 +15,6 @@ class DocumentProcessor extends AbstractProcessor
      */
     public function processToken(Token $token)
     {
-        die('TODO: DirectoryProcessor');
+        die('TODO: DocumentProcessor');
     }
 }
