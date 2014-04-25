@@ -56,10 +56,10 @@ class Tokenizer
      */
     public function merge($text)
     {
-        $tokens = self::tokenize($text);
-        $tags   = array();
-        foreach($tokens as $token) {
-            $tags[$token] = $this->getProcessorHandler()->process($token);
+        $tokens          = self::tokenize($text);
+        $processedTokens = array();
+        foreach($tokens as $tokenRaw) {
+            $processedTokens[$tokenRaw] = $this->getProcessorHandler()->process($tokenRaw);
         }
         var_dump($tags);die('TODO: Replace token with tag value');
     }

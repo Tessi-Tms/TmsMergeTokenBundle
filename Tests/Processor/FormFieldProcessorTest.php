@@ -10,7 +10,7 @@ use Tms\Bundle\MergeTokenBundle\Processor\FormFieldProcessor;
 
 class FormFieldProcessorTest extends \PHPUnit_Framework_TestCase
 {
-    public function testProcessTag()
+    public function testProcess()
     {
         $this->assertEquals(true, true);
     }

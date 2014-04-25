@@ -6,8 +6,11 @@
 
 namespace Tms\Bundle\MergeTokenBundle\Model;
 
+use Tms\Bundle\MergeTokenBundle\Exception\TokenException;
+
 class Token
 {
+    protected $raw;
     protected $type;
     protected $field;
     protected $options;
@@ -16,16 +19,42 @@ class Token
     /**
      * Constructor
      *
-     * @param string $type
-     * @param string $field
-     * @param array  $options
+     * @param array $raw
      */
-    public function __construct($type, $field, $options = array())
+    public function __construct($raw)
     {
-        $this->type    = $type;
-        $this->field   = $field;
+        $this->raw = $raw;
+
+        if (!isset($raw['type'])) {
+            throw new TokenException('Missing raw type');
+        }
+
+        if (!isset($raw['field'])) {
+            throw new TokenException('Missing raw field');
+        }
+
+        $options = array();
+        if (isset($raw['options'])) {
+            $options = json_decode($raw['options'], true);
+            if (null === $options) {
+                throw new TokenException('Wrong raw options');
+            }
+        }
+
+        $this->type    = $raw['type'];
+        $this->field   = $raw['field'];
         $this->options = $options;
         $this->value   = null;
+    }
+
+    /**
+     * Get Raw
+     *
+     * @return string
+     */
+    public function getRaw()
+    {
+        return $this->raw;
     }
 
     /**
@@ -66,5 +95,18 @@ class Token
     public function getValue()
     {
         return $this->value;
+    }
+
+    /**
+     * Set Value
+     *
+     * @param  mixed $value
+     * @return Token
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+
+        return $this;
     }
 }

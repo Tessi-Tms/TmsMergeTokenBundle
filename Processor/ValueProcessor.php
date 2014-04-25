@@ -13,8 +13,8 @@ class ValueProcessor extends AbstractProcessor
     /**
      * {@inheritdoc}
      */
-    public function processToken(Token & $token)
+    public function processToken(Token $token)
     {
-        die('TODO: ValueProcessor');
+        die('TODO: DirectoryProcessor');
     }
 }

@@ -10,7 +10,7 @@ use Tms\Bundle\MergeTokenBundle\Processor\DirectoryProcessor;
 
 class DirectoryProcessorTest extends \PHPUnit_Framework_TestCase
 {
-    public function testProcessTag()
+    public function testProcess()
     {
         $this->assertEquals(true, true);
     }

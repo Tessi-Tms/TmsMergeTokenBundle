@@ -10,7 +10,7 @@ use Tms\Bundle\MergeTokenBundle\Processor\RouteProcessor;
 
 class RouteProcessorTest extends \PHPUnit_Framework_TestCase
 {
-    public function testProcessTag()
+    public function testProcess()
     {
         $this->assertEquals(true, true);
     }

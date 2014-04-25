@@ -13,8 +13,8 @@ interface ProcessorInterface
     /**
      * Process
      *
-     * @param  string $token
-     * @return Token  The Token associated with the given token
+     * @param  string  $tokenRaw
+     * @return Token   The processed token
      */
-    public function process($token);
+    public function process($tokenRaw);
 }

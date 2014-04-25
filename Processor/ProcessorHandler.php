@@ -49,8 +49,8 @@ class ProcessorHandler extends AbstractProcessor
     /**
      * {@inheritdoc}
      */
-    public function processToken(Token & $Token)
+    public function processToken(Token $token)
     {
-        return $this->getProcessor($Token->getType())->processToken(Token & $Token);
+        return $this->getProcessor($token->getType())->processToken($token);
     }
 }

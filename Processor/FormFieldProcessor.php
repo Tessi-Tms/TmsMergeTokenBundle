@@ -13,8 +13,8 @@ class FormFieldProcessor extends AbstractProcessor
     /**
      * {@inheritdoc}
      */
-    public function processToken(Token & $Token)
+    public function processToken(Token $token)
     {
-        die('TODO: FormFieldProcessor');
+        die('TODO: DirectoryProcessor');
     }
 }

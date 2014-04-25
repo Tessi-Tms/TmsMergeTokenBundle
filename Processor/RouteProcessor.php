@@ -13,8 +13,8 @@ class RouteProcessor extends AbstractProcessor
     /**
      * {@inheritdoc}
      */
-    public function processToken(Token & $token)
+    public function processToken(Token $token)
     {
-        die('TODO: RouteProcessor');
+        die('TODO: DirectoryProcessor');
     }
 }

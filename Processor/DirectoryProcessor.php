@@ -13,7 +13,7 @@ class DirectoryProcessor extends AbstractProcessor
     /**
      * {@inheritdoc}
      */
-    public function processToken(Token & $Token)
+    public function processToken(Token $token)
     {
         die('TODO: DirectoryProcessor');
     }
