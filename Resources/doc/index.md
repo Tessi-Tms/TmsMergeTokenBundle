@@ -1,3 +1,3 @@
-Documentation of TmsMergeTagBundle
-==================================
+Documentation of TmsMergeTokenBundle
+====================================
 

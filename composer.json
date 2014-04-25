@@ -1,7 +1,7 @@
 {
-    "name": "tms/merge-tag-bundle",
+    "name": "tms/merge-token-bundle",
     "type": "symfony-bundle",
-    "description": "TMS MergeTagBundle",
+    "description": "TMS MergeTokenBundle",
     "keywords": [],
     "license": "MIT",
     "authors": [
@@ -19,8 +19,8 @@
         "twig/twig":                           "*"
     },
     "autoload": {
-        "psr-0": { "Tms\\Bundle\\MergeTagBundle": "" }
+        "psr-0": { "Tms\\Bundle\\MergeTokenBundle": "" }
     },
-    "target-dir": "Tms/Bundle/MergeTagBundle",
+    "target-dir": "Tms/Bundle/MergeTokenBundle",
     "minimum-stability": "dev"
 }

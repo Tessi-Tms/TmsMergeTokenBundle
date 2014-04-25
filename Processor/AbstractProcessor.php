@@ -4,37 +4,37 @@
  * @author Gabriel Bondaz <gabriel.bondaz@idci-consulting.fr>
  */
 
-namespace Tms\Bundle\MergeTagBundle\Processor;
+namespace Tms\Bundle\MergeTokenBundle\Processor;
 
-use Tms\Bundle\MergeTagBundle\Model\Tag;
+use Tms\Bundle\MergeTokenBundle\Model\Token;
 
 abstract class AbstractProcessor implements ProcessorInterface
 {
     /**
-     * Create a Tag from a given token
+     * Create a Token from a given token
      *
      * @param  array $token ex: array('type' => TYPE, 'field' => FIELD, ['options' => json])
-     * @return Tag
+     * @return Token
      */
-    public static function createTag($token)
+    public static function createToken($token)
     {
         if (!isset($token['type'])) {
-            throw new \Exception('Tag creation error: missing type');
+            throw new \Exception('Token creation error: missing type');
         }
 
         if (!isset($token['field'])) {
-            throw new \Exception('Tag creation error: missing field');
+            throw new \Exception('Token creation error: missing field');
         }
 
         $options = array();
         if (isset($token['options'])) {
             $options = json_decode($token['options'], true);
             if (null === $options) {
-                throw new \Exception('Tag creation error: wrong options');
+                throw new \Exception('Token creation error: wrong options');
             }
         }
 
-        return new Tag(
+        return new Token(
             $token['type'],
             $token['field'],
             $options
@@ -46,20 +46,20 @@ abstract class AbstractProcessor implements ProcessorInterface
      */
     public function process($token)
     {
-        $tag = self::createTag($token);
+        $Token = self::createToken($token);
 
-        if (!$this->processTag($tag)) {
-            throw new \Exception('Tag process failed');
+        if (!$this->processToken($token)) {
+            throw new \Exception('Token process failed');
         }
 
-        return $tag;
+        return $Token;
     }
 
     /**
-     * Process Tag
+     * Process Token
      *
-     * @param  Tag $tag
-     * @return boolean true if Tag value found, false if not
+     * @param  Token $token
+     * @return boolean true if Token value found, false if not
      */
-    abstract public function processTag(Tag & $tag);
+    abstract public function processToken(Token & $token);
 }

@@ -4,9 +4,9 @@
  * @author Gabriel Bondaz <gabriel.bondaz@idci-consulting.fr>
  */
 
-namespace Tms\Bundle\MergeTagBundle\Tests\Processor;
+namespace Tms\Bundle\MergeTokenBundle\Tests\Processor;
 
-use Tms\Bundle\MergeTagBundle\Processor\ObjectProcessor;
+use Tms\Bundle\MergeTokenBundle\Processor\ObjectProcessor;
 
 class ObjectProcessorTest extends \PHPUnit_Framework_TestCase
 {

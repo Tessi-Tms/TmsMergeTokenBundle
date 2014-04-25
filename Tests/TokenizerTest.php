@@ -4,9 +4,9 @@
  * @author Gabriel Bondaz <gabriel.bondaz@idci-consulting.fr>
  */
 
-namespace Tms\Bundle\MergeTagBundle\Tests;
+namespace Tms\Bundle\MergeTokenBundle\Tests;
 
-use Tms\Bundle\MergeTagBundle\Tokenizer;
+use Tms\Bundle\MergeTokenBundle\Tokenizer;
 
 class TokenizerTest extends \PHPUnit_Framework_TestCase
 {

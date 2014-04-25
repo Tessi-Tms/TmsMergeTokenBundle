@@ -4,9 +4,9 @@
  * @author Gabriel Bondaz <gabriel.bondaz@idci-consulting.fr>
  */
 
-namespace Tms\Bundle\MergeTagBundle\Model;
+namespace Tms\Bundle\MergeTokenBundle\Model;
 
-class Tag
+class Token
 {
     protected $type;
     protected $field;

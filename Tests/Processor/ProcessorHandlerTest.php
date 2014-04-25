@@ -4,11 +4,11 @@
  * @author Gabriel Bondaz <gabriel.bondaz@idci-consulting.fr>
  */
 
-namespace Tms\Bundle\MergeTagBundle\Tests\Processor;
+namespace Tms\Bundle\MergeTokenBundle\Tests\Processor;
 
-use Tms\Bundle\MergeTagBundle\Processor\ProcessorHandler;
-use Tms\Bundle\MergeTagBundle\Processor\ValueProcessor;
-use Tms\Bundle\MergeTagBundle\Model\Tag;
+use Tms\Bundle\MergeTokenBundle\Processor\ProcessorHandler;
+use Tms\Bundle\MergeTokenBundle\Processor\ValueProcessor;
+use Tms\Bundle\MergeTokenBundle\Model\Tag;
 
 class ProcessorHandlerTest extends \PHPUnit_Framework_TestCase
 {
@@ -25,7 +25,7 @@ class ProcessorHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $token = array('type' => 'Type', 'field' => 'Field');
         $tag = ProcessorHandler::createTag($token);
-        $this->assertInstanceOf('Tms\Bundle\MergeTagBundle\Model\Tag', $tag);
+        $this->assertInstanceOf('Tms\Bundle\MergeTokenBundle\Model\Tag', $tag);
         $this->assertEquals('Type', $tag->getType());
         $this->assertEquals('Field', $tag->getField());
         $this->assertEquals(array(), $tag->getOptions());
@@ -39,7 +39,7 @@ class ProcessorHandlerTest extends \PHPUnit_Framework_TestCase
             'options' => '{"key": "value"}'
         );
         $tag = ProcessorHandler::createTag($token);
-        $this->assertInstanceOf('Tms\Bundle\MergeTagBundle\Model\Tag', $tag);
+        $this->assertInstanceOf('Tms\Bundle\MergeTokenBundle\Model\Tag', $tag);
         $this->assertEquals('Type', $tag->getType());
         $this->assertEquals('Field', $tag->getField());
         $this->assertCount(1, $tag->getOptions());

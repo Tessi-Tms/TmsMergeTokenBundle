@@ -4,9 +4,9 @@
  * @author Gabriel Bondaz <gabriel.bondaz@idci-consulting.fr>
  */
 
-namespace Tms\Bundle\MergeTagBundle;
+namespace Tms\Bundle\MergeTokenBundle;
 
-use Tms\Bundle\MergeTagBundle\Processor\ProcessorHandler;
+use Tms\Bundle\MergeTokenBundle\Processor\ProcessorHandler;
 
 class Tokenizer
 {

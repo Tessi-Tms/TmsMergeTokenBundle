@@ -4,9 +4,9 @@
  * @author Gabriel Bondaz <gabriel.bondaz@idci-consulting.fr>
  */
 
-namespace Tms\Bundle\MergeTagBundle\Tests\Processor;
+namespace Tms\Bundle\MergeTokenBundle\Tests\Processor;
 
-use Tms\Bundle\MergeTagBundle\Processor\FormFieldProcessor;
+use Tms\Bundle\MergeTokenBundle\Processor\FormFieldProcessor;
 
 class FormFieldProcessorTest extends \PHPUnit_Framework_TestCase
 {

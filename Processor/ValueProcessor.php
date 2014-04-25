@@ -4,16 +4,16 @@
  * @author Gabriel Bondaz <gabriel.bondaz@idci-consulting.fr>
  */
 
-namespace Tms\Bundle\MergeTagBundle\Processor;
+namespace Tms\Bundle\MergeTokenBundle\Processor;
 
-use Tms\Bundle\MergeTagBundle\Model\Tag;
+use Tms\Bundle\MergeTokenBundle\Model\Token;
 
 class ValueProcessor extends AbstractProcessor
 {
     /**
      * {@inheritdoc}
      */
-    public function processTag(Tag & $tag)
+    public function processToken(Token & $token)
     {
         die('TODO: ValueProcessor');
     }

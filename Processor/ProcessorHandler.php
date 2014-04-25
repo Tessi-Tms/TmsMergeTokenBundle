@@ -4,9 +4,9 @@
  * @author Gabriel Bondaz <gabriel.bondaz@idci-consulting.fr>
  */
 
-namespace Tms\Bundle\MergeTagBundle\Processor;
+namespace Tms\Bundle\MergeTokenBundle\Processor;
 
-use Tms\Bundle\MergeTagBundle\Model\Tag;
+use Tms\Bundle\MergeTokenBundle\Model\Token;
 
 class ProcessorHandler extends AbstractProcessor
 {
@@ -49,8 +49,8 @@ class ProcessorHandler extends AbstractProcessor
     /**
      * {@inheritdoc}
      */
-    public function processTag(Tag & $tag)
+    public function processToken(Token & $Token)
     {
-        return $this->getProcessor($tag->getType())->processTag(Tag & $tag);
+        return $this->getProcessor($Token->getType())->processToken(Token & $Token);
     }
 }
