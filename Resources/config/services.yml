@@ -19,27 +19,15 @@ services:
         tags: 
             - { name: tms_merge_token.processor, alias: "Directory" }
 
-    tms_merge_token.processor.document:
-        class: Tms\Bundle\TmsMergeTokenBundle\Processor\DocumentProcessor
-        arguments: []
+    tms_merge_token.processor.doctrine_orm:
+        class: Tms\Bundle\TmsMergeTokenBundle\Processor\DoctrineORMProcessor
+        arguments: [@doctrine.orm.entity_manager]
         tags: 
-            - { name: tms_merge_token.processor, alias: "Document" }
-
-    tms_merge_token.processor.form_field:
-        class: Tms\Bundle\TmsMergeTokenBundle\Processor\FormFieldProcessor
-        arguments: []
-        tags: 
-            - { name: tms_merge_token.processor, alias: "FormField" }
-
-    tms_merge_token.processor.object:
-        class: Tms\Bundle\TmsMergeTokenBundle\Processor\ObjectProcessor
-        arguments: []
-        tags: 
-            - { name: tms_merge_token.processor, alias: "Object" }
+            - { name: tms_merge_token.processor, alias: "DoctrineORM" }
 
     tms_merge_token.processor.route:
         class: Tms\Bundle\TmsMergeTokenBundle\Processor\RouteProcessor
-        arguments: []
+        arguments: [@router]
         tags: 
             - { name: tms_merge_token.processor, alias: "Route" }
 

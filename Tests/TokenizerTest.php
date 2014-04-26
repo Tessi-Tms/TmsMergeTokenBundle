@@ -7,8 +7,6 @@
 namespace Tms\Bundle\MergeTokenBundle\Tests;
 
 use Tms\Bundle\MergeTokenBundle\Tokenizer;
-use Tms\Bundle\MergeTokenBundle\Processor\ProcessorHandler;
-use Tms\Bundle\MergeTokenBundle\Processor\ArithmeticProcessor;
 
 class TokenizerTest extends \PHPUnit_Framework_TestCase
 {
@@ -71,14 +69,5 @@ class TokenizerTest extends \PHPUnit_Framework_TestCase
         $text = "This text contains no %valid.0% token, %even0.if% it's %look.like.ok%";
         $tokenized = Tokenizer::tokenize($text);
         $this->assertCount(0, $tokenized);
-    }
-
-    public function testOperationProcessor()
-    {
-        $text = "2 + 2 = %Arithmetic.sum.{\"operands\":[2,2]}%";
-        $processorHandler = new ProcessorHandler();
-        $processorHandler->setProcessor('Arithmetic', new ArithmeticProcessor());
-        $tokenizer = new Tokenizer($processorHandler);
-        $this->assertEquals("2 + 2 = 4", $tokenizer->merge($text));
     }
 }

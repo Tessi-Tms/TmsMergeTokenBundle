@@ -6,10 +6,23 @@
 
 namespace Tms\Bundle\MergeTokenBundle\Processor;
 
+use Doctrine\ORM\EntityManager;
 use Tms\Bundle\MergeTokenBundle\Model\Token;
 
-class ObjectProcessor extends AbstractProcessor
+class DoctrineORMProcessor extends AbstractProcessor
 {
+    protected $em;
+
+    /**
+     * Constructor
+     *
+     * @param EntityManager $em
+     */
+    public function __construct(EntityManager $em)
+    {
+        $this->em = $em;
+    }
+
     /**
      * {@inheritdoc}
      */
