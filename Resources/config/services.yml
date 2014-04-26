@@ -9,13 +9,12 @@ services:
     # Processors
     tms_merge_token.processor.arithmetic:
         class: Tms\Bundle\TmsMergeTokenBundle\Processor\ArithmeticProcessor
-        arguments: []
         tags: 
             - { name: tms_merge_token.processor, alias: "Arithmetic" }
 
     tms_merge_token.processor.directory:
         class: Tms\Bundle\TmsMergeTokenBundle\Processor\DirectoryProcessor
-        arguments: []
+        arguments: [@doctrine.orm.entity_manager]
         tags: 
             - { name: tms_merge_token.processor, alias: "Directory" }
 
