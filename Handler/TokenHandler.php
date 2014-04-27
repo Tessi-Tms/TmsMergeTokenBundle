@@ -36,6 +36,21 @@ class TokenHandler
     }
 
     /**
+     * Has Processor associated with the given type
+     *
+     * @param  $type
+     * @return boolean
+     */
+    public function hasProcessor($type)
+    {
+        if (!isset($this->processors[$type])) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Get the right Processor associated with the given type
      *
      * @param  $type
@@ -43,7 +58,7 @@ class TokenHandler
      */
     public function getProcessor($type)
     {
-        if (!isset($this->processors[$type])) {
+        if (!$this->hasProcessor($type)) {
             throw new ProcessorException(sprintf(
                 'Undefined processor %s',
                 $type
@@ -107,10 +122,11 @@ class TokenHandler
         $tokenRaws = Tokenizer::tokenize($text);
         foreach ($tokenRaws as $tokenRaw) {
             $token = $this->createToken($tokenRaw);
-            $tokenValue = $this->process($token);
-            $token->setValue($tokenValue);
-
-            $text = str_replace($token->getRaw(), $token->getValue(), $text);
+            if ($this->hasProcessor($token->getType())) {
+                $tokenValue = $this->process($token);
+                $token->setValue($tokenValue);
+                $text = str_replace($token->getRaw(), $token->getValue(), $text);
+            }
         }
 
         return $text;

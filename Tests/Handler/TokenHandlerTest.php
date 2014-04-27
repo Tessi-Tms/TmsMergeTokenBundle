@@ -20,6 +20,16 @@ class TokenHandlerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($defaultProcessor, $handler->getProcessor('Default'));
     }
 
+    public function testHasProcessor()
+    {
+        $defaultProcessor = new DefaultProcessor();
+        $handler = new TokenHandler();
+        $handler->setProcessor('Default', $defaultProcessor);
+
+        $this->assertTrue($handler->hasProcessor('Default'));
+        $this->assertFalse($handler->hasProcessor('Unknow'));
+    }
+
     public function testEmptyMerge()
     {
         $text = "This is a dummy text";
