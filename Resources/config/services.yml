@@ -1,16 +1,17 @@
 services:
-    tms_merge_token.tokenizer:
-        class: Tms\Bundle\TmsMergeTokenBundle\Tokenizer
-        arguments: [@tms_merge_token.processor_handler]
-
-    tms_merge_token.processor_handler:
-        class: Tms\Bundle\TmsMergeTokenBundle\Processor\ProcessorHandler
+    tms_merge_token.token_handler:
+        class: Tms\Bundle\TmsMergeTokenBundle\Handler\TokenHandler
 
     # Processors
     tms_merge_token.processor.arithmetic:
         class: Tms\Bundle\TmsMergeTokenBundle\Processor\ArithmeticProcessor
         tags: 
             - { name: tms_merge_token.processor, alias: "Arithmetic" }
+
+    tms_merge_token.processor.default:
+        class: Tms\Bundle\TmsMergeTokenBundle\Processor\DefaultProcessor
+        tags: 
+            - { name: tms_merge_token.processor, alias: "Default" }
 
     tms_merge_token.processor.directory:
         class: Tms\Bundle\TmsMergeTokenBundle\Processor\DirectoryProcessor

@@ -6,29 +6,9 @@
 
 namespace Tms\Bundle\MergeTokenBundle;
 
-use Tms\Bundle\MergeTokenBundle\Processor\ProcessorHandler;
-
-class Tokenizer
+abstract class Tokenizer
 {
     public static $pattern = '#\%(?P<type>[a-z_-]+)\.(?P<field>[a-z_-]+)(\.(?P<options>\{.*\}))?\%#i';
-
-    /**
-     * Constructor
-     */
-    public function __construct(ProcessorHandler $processorHandler)
-    {
-        $this->processorHandler = $processorHandler;
-    }
-
-    /**
-     * Get Processor Handler
-     *
-     * @return ProcessorHandler
-     */
-    public function getProcessorHandler()
-    {
-        return $this->processorHandler;
-    }
 
     /**
      * Tokenize
@@ -46,22 +26,5 @@ class Tokenizer
         }
 
         return $matches;
-    }
-
-    /**
-     * Merge
-     *
-     * @param  string $text
-     * @return string the merged text
-     */
-    public function merge($text)
-    {
-        $tokenRaws = self::tokenize($text);
-        foreach ($tokenRaws as $tokenRaw) {
-            $token = $this->getProcessorHandler()->process($tokenRaw);
-            $text = str_replace($token->getRaw(), $token->getValue(), $text);
-        }
-
-        return $text;
     }
 }

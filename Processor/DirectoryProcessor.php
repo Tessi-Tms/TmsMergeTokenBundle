@@ -8,8 +8,9 @@ namespace Tms\Bundle\MergeTokenBundle\Processor;
 
 use Doctrine\ORM\EntityManager;
 use Tms\Bundle\MergeTokenBundle\Model\Token;
+use Tms\Bundle\MergeTokenBundle\Exception\ProcessorException;
 
-class DirectoryProcessor extends AbstractProcessor
+class DirectoryProcessor implements ProcessorInterface
 {
     protected $em;
 
@@ -26,7 +27,7 @@ class DirectoryProcessor extends AbstractProcessor
     /**
      * {@inheritdoc}
      */
-    public function processToken(Token $token)
+    public function process(Token $token)
     {
         die('TODO: DirectoryProcessor');
     }

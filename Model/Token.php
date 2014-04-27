@@ -19,30 +19,16 @@ class Token
     /**
      * Constructor
      *
-     * @param array $raw
+     * @param string $raw
+     * @param string $type
+     * @param string $field
+     * @param array  $options
      */
-    public function __construct($raw)
+    public function __construct($raw, $type, $field, array $options = array())
     {
-        $this->raw = $raw[0];
-
-        if (!isset($raw['type'])) {
-            throw new TokenException('Missing raw type');
-        }
-
-        if (!isset($raw['field'])) {
-            throw new TokenException('Missing raw field');
-        }
-
-        $options = array();
-        if (isset($raw['options'])) {
-            $options = json_decode($raw['options'], true);
-            if (null === $options) {
-                throw new TokenException('Wrong raw options');
-            }
-        }
-
-        $this->type    = $raw['type'];
-        $this->field   = $raw['field'];
+        $this->raw     = $raw;
+        $this->type    = $type;
+        $this->field   = $field;
         $this->options = $options;
         $this->value   = null;
     }
@@ -80,7 +66,7 @@ class Token
     /**
      * Get Options
      *
-     * @return array | null
+     * @return array
      */
     public function getOptions()
     {

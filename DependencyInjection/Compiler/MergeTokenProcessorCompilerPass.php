@@ -18,11 +18,11 @@ class MergeTokenProcessorCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('tms_merge_token.processor_handler')) {
+        if (!$container->hasDefinition('tms_merge_token.token_handler')) {
             return;
         }
 
-        $definition = $container->getDefinition('tms_merge_token.processor_handler');
+        $definition = $container->getDefinition('tms_merge_token.token_handler');
         $processorServices = $container->findTaggedServiceIds('tms_merge_token.processor');
 
         foreach ($processorServices as $id => $attributes) {

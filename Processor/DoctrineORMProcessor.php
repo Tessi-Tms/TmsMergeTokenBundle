@@ -8,8 +8,9 @@ namespace Tms\Bundle\MergeTokenBundle\Processor;
 
 use Doctrine\ORM\EntityManager;
 use Tms\Bundle\MergeTokenBundle\Model\Token;
+use Tms\Bundle\MergeTokenBundle\Exception\ProcessorException;
 
-class DoctrineORMProcessor extends AbstractProcessor
+class DoctrineORMProcessor implements ProcessorInterface
 {
     protected $em;
 
@@ -26,7 +27,7 @@ class DoctrineORMProcessor extends AbstractProcessor
     /**
      * {@inheritdoc}
      */
-    public function processToken(Token $token)
+    public function process(Token $token)
     {
         die('TODO: ObjectProcessor');
     }

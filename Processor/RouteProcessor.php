@@ -8,8 +8,9 @@ namespace Tms\Bundle\MergeTokenBundle\Processor;
 
 use Symfony\Component\Routing\Router;
 use Tms\Bundle\MergeTokenBundle\Model\Token;
+use Tms\Bundle\MergeTokenBundle\Exception\ProcessorException;
 
-class RouteProcessor extends AbstractProcessor
+class RouteProcessor implements ProcessorInterface
 {
     protected $router;
 
@@ -26,7 +27,7 @@ class RouteProcessor extends AbstractProcessor
     /**
      * {@inheritdoc}
      */
-    public function processToken(Token $token)
+    public function process(Token $token)
     {
         $routeName       = $token->getField();
         $routeParameters = $token->getOptions();

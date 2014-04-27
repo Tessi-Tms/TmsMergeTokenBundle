@@ -7,14 +7,15 @@
 namespace Tms\Bundle\MergeTokenBundle\Processor;
 
 use Tms\Bundle\MergeTokenBundle\Model\Token;
+use Tms\Bundle\MergeTokenBundle\Exception\ProcessorException;
 
-class DummyProcessor extends AbstractProcessor
+class DefaultProcessor implements ProcessorInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function processToken(Token $token)
+    public function process(Token $token)
     {
-        return null;
+        return $token->getField();
     }
 }

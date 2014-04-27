@@ -19,6 +19,16 @@ class TokenizerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('field', $tokenized[0]["field"]);
     }
 
+    public function testEmbededToken()
+    {
+        $text = "This text contains one embeded token: %type.field.{\"key\":\"%embededtype.embededvalue%\"}%";
+        $tokenized = Tokenizer::tokenize($text);
+        $this->assertCount(1, $tokenized);
+        $this->assertEquals('type', $tokenized[0]["type"]);
+        $this->assertEquals('field', $tokenized[0]["field"]);
+        $this->assertEquals('{"key":"%embededtype.embededvalue%"}', $tokenized[0]["options"]);
+    }
+
     public function testOneTokenWithEmptyOptions()
     {
         $text = "This text contains one token with empty options: %type.field.{}%";

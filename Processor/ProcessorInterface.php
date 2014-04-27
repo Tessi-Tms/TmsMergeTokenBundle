@@ -13,9 +13,9 @@ interface ProcessorInterface
     /**
      * Process
      *
-     * @param  string  $tokenRaw
-     * @return Token   The processed token
-     * @throw  Tms\Bundle\MergeTokenBundle\Exception\TokenException
+     * @param  Token $token
+     * @return mixed The token value
+     * @throw  Tms\Bundle\MergeTokenBundle\Exception\ProcessorException
      */
-    public function process($tokenRaw);
+    public function process(Token $token);
 }
