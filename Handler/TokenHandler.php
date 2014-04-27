@@ -80,9 +80,10 @@ class TokenHandler
      * Create Token
      *
      * @param  array $tokenRaw
+     * @param  object|null $context
      * @return Token
      */
-    public function createToken($tokenRaw)
+    public function createToken($tokenRaw, $context = null)
     {
         if (!isset($tokenRaw['type'])) {
             throw new TokenException('Missing raw type');
@@ -107,21 +108,23 @@ class TokenHandler
             $tokenRaw[0],
             $tokenRaw['type'],
             $tokenRaw['field'],
-            $options
+            $options,
+            $context
         );
     }
 
     /**
      * Merge
      *
-     * @param  string $text
-     * @return string the merged text
+     * @param  string      $text
+     * @param  object|null $context
+     * @return string      the merged text
      */
-    public function merge($text)
+    public function merge($text, $context = null)
     {
         $tokenRaws = Tokenizer::tokenize($text);
         foreach ($tokenRaws as $tokenRaw) {
-            $token = $this->createToken($tokenRaw);
+            $token = $this->createToken($tokenRaw, $context);
             if ($this->hasProcessor($token->getType())) {
                 $tokenValue = $this->process($token);
                 $token->setValue($tokenValue);

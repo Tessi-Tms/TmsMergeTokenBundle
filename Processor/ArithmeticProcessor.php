@@ -21,7 +21,7 @@ class ArithmeticProcessor implements ProcessorInterface
         $rc = new \ReflectionClass($this);
         if (!$rc->hasMethod($operation)) {
             throw new ProcessorException(sprintf(
-                'The %s operation is undefined',
+                'The %s arithmetic operation is undefined',
                 $operation
             ));
         }

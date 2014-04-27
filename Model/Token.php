@@ -14,22 +14,25 @@ class Token
     protected $type;
     protected $field;
     protected $options;
+    protected $context;
     protected $value;
 
     /**
      * Constructor
      *
-     * @param string $raw
-     * @param string $type
-     * @param string $field
-     * @param array  $options
+     * @param string      $raw
+     * @param string      $type
+     * @param string      $field
+     * @param array       $options
+     * @param object|null $context
      */
-    public function __construct($raw, $type, $field, array $options = array())
+    public function __construct($raw, $type, $field, array $options = array(), $context = null)
     {
         $this->raw     = $raw;
         $this->type    = $type;
         $this->field   = $field;
         $this->options = $options;
+        $this->context = $context;
         $this->value   = null;
     }
 
@@ -93,6 +96,26 @@ class Token
         }
 
         return $this->options[$key];
+    }
+
+    /**
+     * Get Context
+     *
+     * @return object | null
+     */
+    public function getContext()
+    {
+        return $this->context;
+    }
+
+    /**
+     * Has Context
+     *
+     * @return boolean
+     */
+    public function hasContext()
+    {
+        return null !== $this->context;
     }
 
     /**

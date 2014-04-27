@@ -38,6 +38,14 @@ class TokenHandlerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($text, $handler->merge($text));
     }
 
+    public function testMergeWithoutProcessor()
+    {
+        $text = "Default %Default.value%";
+        $handler = new TokenHandler();
+
+        $this->assertEquals("Default %Default.value%", $handler->merge($text));
+    }
+
     public function testDefaultMerge()
     {
         $text = "Default %Default.value%";

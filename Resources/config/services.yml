@@ -8,6 +8,11 @@ services:
         tags: 
             - { name: tms_merge_token.processor, alias: "Arithmetic" }
 
+    tms_merge_token.processor.datetime:
+        class: Tms\Bundle\TmsMergeTokenBundle\Processor\DateTimeProcessor
+        tags: 
+            - { name: tms_merge_token.processor, alias: "DateTime" }
+
     tms_merge_token.processor.default:
         class: Tms\Bundle\TmsMergeTokenBundle\Processor\DefaultProcessor
         tags: 
