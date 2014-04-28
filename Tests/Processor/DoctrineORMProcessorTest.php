@@ -6,9 +6,8 @@
 
 namespace Tms\Bundle\MergeTokenBundle\Tests\Processor;
 
-use Tms\Bundle\MergeTokenBundle\Tokenizer;
 use Tms\Bundle\MergeTokenBundle\Handler\TokenHandler;
-use Tms\Bundle\MergeTokenBundle\Processor\ArithmeticProcessor;
+use Tms\Bundle\MergeTokenBundle\Processor\DoctrineORMProcessor;
 
 class DoctrineORMProcessorTest extends \PHPUnit_Framework_TestCase
 {

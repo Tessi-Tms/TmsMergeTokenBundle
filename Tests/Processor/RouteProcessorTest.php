@@ -7,9 +7,8 @@
 namespace Tms\Bundle\MergeTokenBundle\Tests\Processor;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Tms\Bundle\MergeTokenBundle\Processor\RouteProcessor;
-use Tms\Bundle\MergeTokenBundle\Tokenizer;
 use Tms\Bundle\MergeTokenBundle\Handler\TokenHandler;
+use Tms\Bundle\MergeTokenBundle\Processor\RouteProcessor;
 
 class RouteProcessorTest extends WebTestCase
 {

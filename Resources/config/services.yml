@@ -30,6 +30,11 @@ services:
         tags: 
             - { name: tms_merge_token.processor, alias: "DoctrineORM" }
 
+    tms_merge_token.processor.object:
+        class: Tms\Bundle\TmsMergeTokenBundle\Processor\ObjectProcessor
+        tags: 
+            - { name: tms_merge_token.processor, alias: "Object" }
+
     tms_merge_token.processor.route:
         class: Tms\Bundle\TmsMergeTokenBundle\Processor\RouteProcessor
         arguments: [@router]

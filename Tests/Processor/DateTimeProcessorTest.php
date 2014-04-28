@@ -6,7 +6,6 @@
 
 namespace Tms\Bundle\MergeTokenBundle\Tests\Processor;
 
-use Tms\Bundle\MergeTokenBundle\Tokenizer;
 use Tms\Bundle\MergeTokenBundle\Handler\TokenHandler;
 use Tms\Bundle\MergeTokenBundle\Processor\DateTimeProcessor;
 
