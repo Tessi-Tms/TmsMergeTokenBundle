@@ -10,7 +10,7 @@ class DummyObject
 {
     protected $id;
 
-    public function __construct($id)
+    public function __construct($id = 1)
     {
         $this->id = $id;
     }

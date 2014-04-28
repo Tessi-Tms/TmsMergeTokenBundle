@@ -20,20 +20,20 @@ class Token
     /**
      * Constructor
      *
-     * @param string      $raw
-     * @param string      $type
-     * @param string      $field
-     * @param array       $options
-     * @param object|null $context
+     * @param string       $raw
+     * @param string       $type
+     * @param string       $field
+     * @param array        $options
+     * @param MergeContext $mergeContext
      */
-    public function __construct($raw, $type, $field, array $options = array(), $context = null)
+    public function __construct($raw, $type, $field, array $options = array(), MergeContext $mergeContext = null)
     {
-        $this->raw     = $raw;
-        $this->type    = $type;
-        $this->field   = $field;
-        $this->options = $options;
-        $this->context = $context;
-        $this->value   = null;
+        $this->raw          = $raw;
+        $this->type         = $type;
+        $this->field        = $field;
+        $this->options      = $options;
+        $this->mergeContext = $mergeContext;
+        $this->value        = null;
     }
 
     /**
@@ -99,23 +99,23 @@ class Token
     }
 
     /**
-     * Get Context
+     * Get MergeContext
      *
-     * @return object | null
+     * @return MergeContext | null
      */
-    public function getContext()
+    public function getMergeContext()
     {
-        return $this->context;
+        return $this->mergeContext;
     }
 
     /**
-     * Has Context
+     * Has Merge Context
      *
      * @return boolean
      */
-    public function hasContext()
+    public function hasMergeContext()
     {
-        return null !== $this->context;
+        return $this->getMergeContext()->isDefined();
     }
 
     /**

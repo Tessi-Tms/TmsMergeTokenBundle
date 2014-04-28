@@ -16,12 +16,12 @@ class ObjectProcessor implements ProcessorInterface
      */
     public function process(Token $token)
     {
-        if (!$token->hasContext()) {
-            throw new ProcessorException('Context required');
+        if (!$token->getMergeContext()->hasObject()) {
+            throw new ProcessorException('Merge Context Object required');
         }
 
         $method = $token->getField();
-        $rc = new \ReflectionClass($token->getContext());
+        $rc = new \ReflectionClass($token->getMergeContext()->getObject());
         if (!$rc->hasMethod($method)) {
             throw new ProcessorException(sprintf(
                 'The "%s" context object method is undefined',
@@ -30,7 +30,7 @@ class ObjectProcessor implements ProcessorInterface
         }
 
         return call_user_func_array(
-            array($token->getContext(), $method),
+            array($token->getMergeContext()->getObject(), $method),
             $token->getOptions()
         );
     }

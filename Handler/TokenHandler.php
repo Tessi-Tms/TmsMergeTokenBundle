@@ -7,6 +7,7 @@
 namespace Tms\Bundle\MergeTokenBundle\Handler;
 
 use Tms\Bundle\MergeTokenBundle\Model\Token;
+use Tms\Bundle\MergeTokenBundle\Model\MergeContext;
 use Tms\Bundle\MergeTokenBundle\Tokenizer;
 use Tms\Bundle\MergeTokenBundle\Processor\ProcessorInterface;
 use Tms\Bundle\MergeTokenBundle\Exception\TokenException;
@@ -79,11 +80,11 @@ class TokenHandler
     /**
      * Create Token
      *
-     * @param  array $tokenRaw
-     * @param  object|null $context
+     * @param  array             $tokenRaw
+     * @param  MergeContext|null $mergeContext
      * @return Token
      */
-    public function createToken($tokenRaw, $context = null)
+    public function createToken($tokenRaw, MergeContext $mergeContext = null)
     {
         if (!isset($tokenRaw['type'])) {
             throw new TokenException('Missing raw type');
@@ -109,22 +110,22 @@ class TokenHandler
             $tokenRaw['type'],
             $tokenRaw['field'],
             $options,
-            $context
+            $mergeContext
         );
     }
 
     /**
      * Merge
      *
-     * @param  string      $text
-     * @param  object|null $context
-     * @return string      the merged text
+     * @param  string            $text
+     * @param  MergeContext|null $mergeContext
+     * @return string            the merged text
      */
-    public function merge($text, $context = null)
+    public function merge($text, MergeContext $mergeContext = null)
     {
         $tokenRaws = Tokenizer::tokenize($text);
         foreach ($tokenRaws as $tokenRaw) {
-            $token = $this->createToken($tokenRaw, $context);
+            $token = $this->createToken($tokenRaw, $mergeContext);
             if ($this->hasProcessor($token->getType())) {
                 $tokenValue = $this->process($token);
                 $token->setValue($tokenValue);

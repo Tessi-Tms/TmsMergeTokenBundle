@@ -8,6 +8,7 @@ namespace Tms\Bundle\MergeTokenBundle\Tests\Processor;
 
 use Tms\Bundle\MergeTokenBundle\Handler\TokenHandler;
 use Tms\Bundle\MergeTokenBundle\Processor\ObjectProcessor;
+use Tms\Bundle\MergeTokenBundle\Model\MergeContext;
 use Tms\Bundle\MergeTokenBundle\Tests\Fixtures\DummyObject;
 use Tms\Bundle\MergeTokenBundle\Exception\ProcessorException;
 
@@ -17,8 +18,9 @@ class ObjectProcessorTest extends \PHPUnit_Framework_TestCase
     {
         $tokenHandler = new TokenHandler();
         $tokenHandler->setProcessor('Object', new ObjectProcessor());
+
+        $context = new MergeContext(null, new DummyObject(42));
         $text = "%Object.getId%";
-        $context = new DummyObject(42);
         $this->assertEquals(42, $tokenHandler->merge($text, $context));
 
         $text = "%Object.getUnknown%";
