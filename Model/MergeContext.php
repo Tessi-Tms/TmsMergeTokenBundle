@@ -13,14 +13,32 @@ class MergeContext
 
     /**
      * Constructor
-     *
-     * @param string|null $name
-     * @param object|null $object
      */
-    public function __construct($name = null, $object = null)
+    private function __construct()
     {
-        $this->name   = $name;
-        $this->object = $object;
+        $this->name   = null;
+        $this->object = null;
+    }
+
+    /**
+     * Create
+     *
+     * @param array       $context
+     * @param string|null $name
+     */
+    public static function create(array $context = array(), $name = null)
+    {
+        $object = new self();
+
+        if (isset($context['object'])) {
+            $object->setObject($context['object']);
+        }
+
+        if (null !== $name) {
+            $object->setName($name);
+        }
+
+        return $object;
     }
 
     /**
@@ -59,7 +77,7 @@ class MergeContext
      * @param  string $name
      * @return MergeContext
      */
-    public function setName($name)
+    private function setName($name)
     {
         $this->name = $name;
 
@@ -92,7 +110,7 @@ class MergeContext
      * @param  object $object
      * @return MergeContext
      */
-    public function setObject($object)
+    private function setObject($object)
     {
         $this->object = $object;
 

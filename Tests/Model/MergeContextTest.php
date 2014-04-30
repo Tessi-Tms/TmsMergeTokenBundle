@@ -11,9 +11,9 @@ use Tms\Bundle\MergeTokenBundle\Tests\Fixtures\DummyObject;
 
 class MergeContextTest extends \PHPUnit_Framework_TestCase
 {
-    public function testConstructWithoutArguments()
+    public function testEmptyCreate()
     {
-        $mergeContext = new MergeContext();
+        $mergeContext = MergeContext::create(array());
 
         $this->assertInstanceOf('Tms\Bundle\MergeTokenBundle\Model\MergeContext', $mergeContext);
         $this->assertNull($mergeContext->getName());
@@ -22,24 +22,12 @@ class MergeContextTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($mergeContext->hasObject());
     }
 
-    public function testConstructWithArguments()
+    public function testCreate()
     {
-        $mergeContext = new MergeContext('Default', new DummyObject());
-
-        $this->assertInstanceOf('Tms\Bundle\MergeTokenBundle\Model\MergeContext', $mergeContext);
-        $this->assertEquals('Default', $mergeContext->getName());
-        $this->assertInstanceOf('Tms\Bundle\MergeTokenBundle\Tests\Fixtures\DummyObject', $mergeContext->getObject());
-        $this->assertTrue($mergeContext->hasName());
-        $this->assertTrue($mergeContext->hasObject());
-    }
-
-    public function testSetters()
-    {
-        $mergeContext = new MergeContext();
-        $mergeContext
-            ->setName('Default')
-            ->setObject(new DummyObject())
-        ;
+        $mergeContext = MergeContext::create(
+            array('object' => new DummyObject()),
+            'Default'
+        );
 
         $this->assertInstanceOf('Tms\Bundle\MergeTokenBundle\Model\MergeContext', $mergeContext);
         $this->assertEquals('Default', $mergeContext->getName());

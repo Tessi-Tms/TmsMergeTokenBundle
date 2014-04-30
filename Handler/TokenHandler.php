@@ -7,7 +7,6 @@
 namespace Tms\Bundle\MergeTokenBundle\Handler;
 
 use Tms\Bundle\MergeTokenBundle\Model\Token;
-use Tms\Bundle\MergeTokenBundle\Model\MergeContext;
 use Tms\Bundle\MergeTokenBundle\Tokenizer;
 use Tms\Bundle\MergeTokenBundle\Processor\ProcessorInterface;
 use Tms\Bundle\MergeTokenBundle\Exception\TokenException;
@@ -28,8 +27,8 @@ class TokenHandler
     /**
      * Add processor
      *
-     * @param string             $type
-     * @param AbstractProcessor  $processor
+     * @param string            $type
+     * @param AbstractProcessor $processor
      */
     public function setProcessor($type, ProcessorInterface $processor)
     {
@@ -78,13 +77,35 @@ class TokenHandler
     }
 
     /**
+     * Merge
+     *
+     * @param  string $text
+     * @param  array  $context
+     * @return string the merged text
+     */
+    public function merge($text, array $context = array())
+    {
+        $tokenRaws = Tokenizer::tokenize($text);
+        foreach ($tokenRaws as $tokenRaw) {
+            $token = $this->createToken($tokenRaw, $context);
+            if ($this->hasProcessor($token->getType())) {
+                $tokenValue = $this->process($token);
+                $token->setValue($tokenValue);
+                $text = str_replace($token->getRaw(), $token->getValue(), $text);
+            }
+        }
+
+        return $text;
+    }
+
+    /**
      * Create Token
      *
-     * @param  array             $tokenRaw
-     * @param  MergeContext|null $mergeContext
+     * @param  array $tokenRaw
+     * @param  array $context
      * @return Token
      */
-    public function createToken($tokenRaw, MergeContext $mergeContext = null)
+    private function createToken($tokenRaw, array $context = array())
     {
         if (!isset($tokenRaw['type'])) {
             throw new TokenException('Missing raw type');
@@ -110,29 +131,8 @@ class TokenHandler
             $tokenRaw['type'],
             $tokenRaw['field'],
             $options,
-            $mergeContext
+            $context
         );
     }
-
-    /**
-     * Merge
-     *
-     * @param  string            $text
-     * @param  MergeContext|null $mergeContext
-     * @return string            the merged text
-     */
-    public function merge($text, MergeContext $mergeContext = null)
-    {
-        $tokenRaws = Tokenizer::tokenize($text);
-        foreach ($tokenRaws as $tokenRaw) {
-            $token = $this->createToken($tokenRaw, $mergeContext);
-            if ($this->hasProcessor($token->getType())) {
-                $tokenValue = $this->process($token);
-                $token->setValue($tokenValue);
-                $text = str_replace($token->getRaw(), $token->getValue(), $text);
-            }
-        }
-
-        return $text;
-    }
 }
+

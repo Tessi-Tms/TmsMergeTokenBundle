@@ -14,25 +14,25 @@ class Token
     protected $type;
     protected $field;
     protected $options;
-    protected $context;
+    protected $mergeContext;
     protected $value;
 
     /**
      * Constructor
      *
-     * @param string       $raw
-     * @param string       $type
-     * @param string       $field
-     * @param array        $options
-     * @param MergeContext $mergeContext
+     * @param string $raw
+     * @param string $type
+     * @param string $field
+     * @param array  $options
+     * @param array  $context
      */
-    public function __construct($raw, $type, $field, array $options = array(), MergeContext $mergeContext = null)
+    public function __construct($raw, $type, $field, array $options = array(), array $context = array())
     {
         $this->raw          = $raw;
         $this->type         = $type;
         $this->field        = $field;
         $this->options      = $options;
-        $this->mergeContext = $mergeContext;
+        $this->mergeContext = MergeContext::create($context);
         $this->value        = null;
     }
 
