@@ -29,9 +29,15 @@ class ObjectProcessor implements ProcessorInterface
             ));
         }
 
-        return call_user_func_array(
+        $processedData = call_user_func_array(
             array($token->getMergeContext()->getObject(), $method),
             $token->getOptions()
         );
+
+        if ($processedData instanceof \DateTime) {
+            return $processedData->format(\DateTime::W3C);
+        }
+
+        return (string)$processedData;
     }
 }

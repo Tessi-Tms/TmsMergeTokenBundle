@@ -19,7 +19,7 @@ class DateTimeProcessor implements ProcessorInterface
         $date   = new \DateTime($token->getOption('date', 'now'));
         $method = $token->getField();
 
-        if (!in_array($method, array('now', 'modify'))) {
+        if (!in_array($method, array('now', 'modify', 'format'))) {
             throw new ProcessorException(sprintf(
                 'The %s datetime method is undefined',
                 $method

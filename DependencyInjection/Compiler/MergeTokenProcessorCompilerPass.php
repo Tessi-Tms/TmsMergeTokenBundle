@@ -28,7 +28,7 @@ class MergeTokenProcessorCompilerPass implements CompilerPassInterface
         foreach ($processorServices as $id => $attributes) {
             $definition->addMethodCall(
                 'setProcessor',
-                array($attributes[0]['alias'], $id)
+                array($attributes[0]['alias'], new Reference($id))
             );
         }
     }

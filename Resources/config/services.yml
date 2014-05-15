@@ -1,42 +1,42 @@
 services:
     tms_merge_token.token_handler:
-        class: Tms\Bundle\TmsMergeTokenBundle\Handler\TokenHandler
+        class: Tms\Bundle\MergeTokenBundle\Handler\TokenHandler
 
     # Processors
     tms_merge_token.processor.arithmetic:
-        class: Tms\Bundle\TmsMergeTokenBundle\Processor\ArithmeticProcessor
+        class: Tms\Bundle\MergeTokenBundle\Processor\ArithmeticProcessor
         tags: 
             - { name: tms_merge_token.processor, alias: "Arithmetic" }
 
     tms_merge_token.processor.datetime:
-        class: Tms\Bundle\TmsMergeTokenBundle\Processor\DateTimeProcessor
+        class: Tms\Bundle\MergeTokenBundle\Processor\DateTimeProcessor
         tags: 
             - { name: tms_merge_token.processor, alias: "DateTime" }
 
     tms_merge_token.processor.default:
-        class: Tms\Bundle\TmsMergeTokenBundle\Processor\DefaultProcessor
+        class: Tms\Bundle\MergeTokenBundle\Processor\DefaultProcessor
         tags: 
             - { name: tms_merge_token.processor, alias: "Default" }
 
     tms_merge_token.processor.directory:
-        class: Tms\Bundle\TmsMergeTokenBundle\Processor\DirectoryProcessor
+        class: Tms\Bundle\MergeTokenBundle\Processor\DirectoryProcessor
         arguments: [@doctrine.orm.entity_manager]
         tags: 
             - { name: tms_merge_token.processor, alias: "Directory" }
 
     tms_merge_token.processor.doctrine_orm:
-        class: Tms\Bundle\TmsMergeTokenBundle\Processor\DoctrineORMProcessor
+        class: Tms\Bundle\MergeTokenBundle\Processor\DoctrineORMProcessor
         arguments: [@doctrine.orm.entity_manager]
         tags: 
             - { name: tms_merge_token.processor, alias: "DoctrineORM" }
 
     tms_merge_token.processor.object:
-        class: Tms\Bundle\TmsMergeTokenBundle\Processor\ObjectProcessor
+        class: Tms\Bundle\MergeTokenBundle\Processor\ObjectProcessor
         tags: 
             - { name: tms_merge_token.processor, alias: "Object" }
 
     tms_merge_token.processor.route:
-        class: Tms\Bundle\TmsMergeTokenBundle\Processor\RouteProcessor
+        class: Tms\Bundle\MergeTokenBundle\Processor\RouteProcessor
         arguments: [@router]
         tags: 
             - { name: tms_merge_token.processor, alias: "Route" }

@@ -118,7 +118,7 @@ class TokenHandler
         $options = array();
         if (isset($tokenRaw['options'])) {
             // Merge options before json decode
-            $options = $this->merge($tokenRaw['options']);
+            $options = $this->merge($tokenRaw['options'], $context);
 
             $options = json_decode($options, true);
             if (null === $options) {
