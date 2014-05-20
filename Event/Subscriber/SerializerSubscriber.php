@@ -49,6 +49,7 @@ class SerializerSubscriber implements EventSubscriberInterface
      */
     public function onPreSerialize(ObjectEvent $event)
     {
+        die('serialize test');
         $type = $event->getType();
         if ($event->getObject() instanceof \Tms\Bundle\OperationBundle\Entity\OfferModality) {
             $modality = $event->getObject();
