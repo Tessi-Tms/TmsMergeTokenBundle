@@ -4,6 +4,8 @@ namespace Tms\Bundle\MergeTokenBundle\Event\Subscriber;
 
 use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
+use JMS\Serializer\GraphNavigator;
+use JMS\Serializer\EventDispatcher\Events;
 
 /**
  * SerializerSubscriber
@@ -39,8 +41,16 @@ class SerializerSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            array('event' => 'serializer.pre_serialize',  'method' => 'onPreSerialize'),
-            array('event' => 'serializer.post_serialize', 'method' => 'onPostSerialize'),
+            array(
+                'event'     => Events::PRE_SERIALIZE,
+                'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
+                'method'    => 'onPreSerialize',
+            ),
+            array(
+                'event'     => Events::POST_SERIALIZE,
+                'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
+                'method'    => 'onPostSerialize',
+            ),
         );
     }
 
@@ -49,7 +59,26 @@ class SerializerSubscriber implements EventSubscriberInterface
      */
     public function onPreSerialize(ObjectEvent $event)
     {
-        die('serialize test');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function onPostSerialize(ObjectEvent $event)
+    {
+        $context = $event->getContext();
+//        var_dump($context->getVisitor()->getNavigator()); die;
+        //var_dump($context->attributes->get('groups')); die;
+        $context->attributes->get('groups')->map(
+            function(array $groups) use ($event) {
+                if (in_array('tms_merge_token.merge', $groups)) {
+                    $object = $event->getObject();
+                    var_dump($object);
+                }
+            }
+        );
+
+        /*
         $type = $event->getType();
         if ($event->getObject() instanceof \Tms\Bundle\OperationBundle\Entity\OfferModality) {
             $modality = $event->getObject();
@@ -61,12 +90,9 @@ class SerializerSubscriber implements EventSubscriberInterface
                 )
             );
         }
-    }
+        */
 
-    /**
-     * {@inheritdoc}
-     */
-    public function onPostSerialize(ObjectEvent $event)
-    {
+        var_dump(get_class($event->getVisitor()));die;
+        $event->getVisitor()->setData('updatedAt', 'someValue');
     }
 }

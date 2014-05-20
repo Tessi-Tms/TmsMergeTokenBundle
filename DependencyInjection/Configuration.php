@@ -20,9 +20,26 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('tms_merge_token');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+            ->children()
+                ->arrayNode('mergeable_objects')
+                    ->useAttributeAsKey('')
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('class')->isRequired()->cannotBeEmpty()->end()
+                            ->arrayNode('properties')
+                                ->useAttributeAsKey('')
+                                ->prototype('array')
+                                    ->children()
+                                        ->scalarNode('mode')->defaultValue('replace')->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
 
         return $treeBuilder;
     }
