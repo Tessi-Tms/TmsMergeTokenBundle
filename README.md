@@ -18,7 +18,7 @@ Add dependencies in your `composer.json` file:
 ],
 "require": {
     ...,
-    "tms/merge-tag": "dev-master"
+    "tms/merge-token-bundle": "dev-master"
 }
 ```
 
