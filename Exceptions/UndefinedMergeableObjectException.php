@@ -1,6 +1,6 @@
 <?php
 
-namespace Tms\Bundle\MergeTokenBundle\Exception;
+namespace Tms\Bundle\MergeTokenBundle\Exceptions;
 
 
 /**

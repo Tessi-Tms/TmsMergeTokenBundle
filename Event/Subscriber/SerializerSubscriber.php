@@ -6,6 +6,9 @@ use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
 use JMS\Serializer\GraphNavigator;
 use JMS\Serializer\EventDispatcher\Events;
+use Tms\Bundle\MergeTokenBundle\Mergeable\MergeableObjectHandler;
+use Tms\Bundle\MergeTokenBundle\Mergeable\MergeableObject;
+use Tms\Bundle\MergeTokenBundle\Exceptions\UndefinedMergeableObjectException;
 
 /**
  * SerializerSubscriber
@@ -16,23 +19,39 @@ class SerializerSubscriber implements EventSubscriberInterface
 {
     protected $twig;
 
+    protected $mergeableObjectHandler;
+
     /**
      * Constructor
      *
-     * @param Twig_Environment $twig
+     * @param Twig_Environment       $twig
+     * @param MergeableObjectHandler $mergeableObjectHandler
      */
-    public function __construct(\Twig_Environment $twig)
+    public function __construct(\Twig_Environment $twig, MergeableObjectHandler $mergeableObjectHandler)
     {
         $this->twig = clone $twig;
         $this->twig->setLoader(new \Twig_Loader_String());
+        $this->mergeableObjectHandler = $mergeableObjectHandler;
     }
 
     /**
+     * Get Twig
+     *
      * @return Twig_Environment
      */
     public function getTwig()
     {
         return $this->twig;
+    }
+
+    /**
+     * Get Mergeable Object Handler
+     *
+     * @return MergeableObjectHandler
+     */
+    public function getMergeableObjectHandler()
+    {
+        return $this->mergeableObjectHandler;
     }
 
     /**
@@ -46,11 +65,11 @@ class SerializerSubscriber implements EventSubscriberInterface
                 'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
                 'method'    => 'onPreSerialize',
             ),
-            array(
-                'event'     => Events::POST_SERIALIZE,
-                'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
-                'method'    => 'onPostSerialize',
-            ),
+//            array(
+//                'event'     => Events::POST_SERIALIZE,
+//                'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
+//                'method'    => 'onPostSerialize',
+//            ),
         );
     }
 
@@ -59,40 +78,66 @@ class SerializerSubscriber implements EventSubscriberInterface
      */
     public function onPreSerialize(ObjectEvent $event)
     {
+        $object = $event->getObject();
+        $type   = $event->getType();
+
+        try {
+            $mergeableObject = $this
+                ->getMergeableObjectHandler()
+                ->guessMergeableObject($type['name'])
+            ;
+            foreach ($mergeableObject->getProperties() as $propertyName => $propertyParameters) {
+                $getter = sprintf('get%s', self::camelize($propertyName));
+                $setter = sprintf('set%s', self::camelize($propertyName));
+                $rc = new \ReflectionClass($object);
+                if ($rc->hasMethod($getter)) {
+                    $mergedValue = $this->getTwig()->render(
+                        $object->$getter(),
+                        array($mergeableObject->getId() => $object)
+                    );
+
+                    if ($propertyParameters['mode'] == MergeableObject::BLENDING_MODE_REPLACE) {
+                        $object->$setter($mergedValue);
+                    }
+
+                    if ($propertyParameters['mode'] == MergeableObject::BLENDING_MODE_ADD) {
+                        $event->getVisitor()->addData(
+                            lcfirst(self::camelize(sprintf('%s_%s_%s',
+                                'merged',
+                                $mergeableObject->getId(),
+                                $propertyName
+                            ))),
+                            $mergedValue
+                        );
+                    }
+                }
+            }
+        } catch (UndefinedMergeableObjectException $e) {
+            return;
+        }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function onPostSerialize(ObjectEvent $event)
+//    public function onPostSerialize(ObjectEvent $event)
+//    {
+//    }
+
+    /**
+     * Returns given word as CamelCased
+     *
+     * Converts a word like "send_email" to "SendEmail". It
+     * will remove non alphanumeric character from the word, so
+     * "who's online" will be converted to "WhoSOnline"
+     *
+     * @param  string $word
+     * @return string UpperCamelCasedWord
+     */
+    public static function camelize($word)
     {
-        $context = $event->getContext();
-//        var_dump($context->getVisitor()->getNavigator()); die;
-        //var_dump($context->attributes->get('groups')); die;
-        $context->attributes->get('groups')->map(
-            function(array $groups) use ($event) {
-                if (in_array('tms_merge_token.merge', $groups)) {
-                    $object = $event->getObject();
-                    var_dump($object);
-                }
-            }
-        );
-
-        /*
-        $type = $event->getType();
-        if ($event->getObject() instanceof \Tms\Bundle\OperationBundle\Entity\OfferModality) {
-            $modality = $event->getObject();
-            $modality->setInformation($this
-                ->getTwig()
-                ->render(
-                    $modality->getInformation(),
-                    array('object' => $modality->getOffer())
-                )
-            );
-        }
-        */
-
-        //var_dump(get_class($event->getVisitor()));die;
-        //$event->getVisitor()->setData('updatedAt', 'someValue');
+        return str_replace(' ', '' , ucwords(
+            preg_replace('/[^A-Z^a-z^0-9]+/', ' ', $word)
+        ));
     }
 }

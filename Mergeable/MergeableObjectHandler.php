@@ -2,23 +2,29 @@
 
 namespace Tms\Bundle\MergeTokenBundle\Mergeable;
 
-use Tms\Bundle\MergeTokenBundle\Exception\UndefinedMergeableObjectException;
+use Tms\Bundle\MergeTokenBundle\Exceptions\UndefinedMergeableObjectException;
 
 /**
- * MergeableHandler
+ * MergeableObjectHandler
  *
  * @author Gabriel Bondaz <gabriel.bondaz@idci-consulting.fr>
  */
-class MergeableHandler
+class MergeableObjectHandler
 {
     protected $mergeableObjects;
 
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct(array $data)
     {
-        $this->mergeableObjects = array();
+        foreach ($data as $id => $mergeableObjectRaw) {
+            $this->mergeableObjects[$id] = new MergeableObject(
+                $id,
+                $mergeableObjectRaw['class'],
+                $mergeableObjectRaw['properties']
+            );
+        }
     }
 
     /**

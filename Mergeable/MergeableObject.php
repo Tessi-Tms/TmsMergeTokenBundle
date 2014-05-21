@@ -9,6 +9,9 @@ namespace Tms\Bundle\MergeTokenBundle\Mergeable;
  */
 class MergeableObject
 {
+    const BLENDING_MODE_REPLACE = 'replace';
+    const BLENDING_MODE_ADD = 'add';
+
     protected $id;
 
     protected $className;
@@ -22,7 +25,7 @@ class MergeableObject
      * @param string $className
      * @param array  $properties
      */
-    public function __construct($id = null, $className = null, $properties = array())
+    public function __construct($id = null, $className = null, array $properties = array())
     {
         $this->setId($id);
         $this->setClassName($className);
