@@ -92,7 +92,7 @@ class SerializerSubscriber implements EventSubscriberInterface
         }
         */
 
-        var_dump(get_class($event->getVisitor()));die;
-        $event->getVisitor()->setData('updatedAt', 'someValue');
+        //var_dump(get_class($event->getVisitor()));die;
+        //$event->getVisitor()->setData('updatedAt', 'someValue');
     }
 }
