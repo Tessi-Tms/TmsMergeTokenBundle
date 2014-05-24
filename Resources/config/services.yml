@@ -1,11 +1,26 @@
 services:
 
+    tms_merge_token.twig_string_loader:
+        class:        "Twig_Loader_String"
+    tms_merge_token.twig:
+        class:        "%twig.class%"
+        arguments:    [@tms_merge_token.twig_string_loader, %twig.options% ]
+
     tms_merge_token.mergeable_object.handler:
         class: Tms\Bundle\MergeTokenBundle\Mergeable\MergeableObjectHandler
-        arguments: [%tms_merge_token.mergeable_objects%]
+        arguments: [@tms_merge_token.twig, %tms_merge_token.mergeable_objects%]
 
     tms_merge_token.event.subscriber.serializer:
         class: Tms\Bundle\MergeTokenBundle\Event\Subscriber\SerializerSubscriber
-        arguments: [@twig, @tms_merge_token.mergeable_object.handler]
+        arguments: [@tms_merge_token.mergeable_object.handler]
         tags:
             - { name: jms_serializer.event_subscriber }
+
+
+    ## Twig Extensions ##
+
+    tms_merge_token.twig.merge_token_extension:
+        class: Tms\Bundle\MergeTokenBundle\Twig\MergeTokenExtension
+        arguments: [@tms_merge_token.mergeable_object.handler]
+        tags:
+            - { name: twig.extension }

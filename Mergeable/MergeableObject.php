@@ -9,9 +9,6 @@ namespace Tms\Bundle\MergeTokenBundle\Mergeable;
  */
 class MergeableObject
 {
-    const BLENDING_MODE_REPLACE = 'replace';
-    const BLENDING_MODE_ADD = 'add';
-
     protected $id;
 
     protected $className;
