@@ -1,4 +1,4 @@
-<?
+<?php
 
 namespace Tms\Bundle\MergeTokenBundle\Twig;
 
