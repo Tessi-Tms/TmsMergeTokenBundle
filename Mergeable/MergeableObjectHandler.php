@@ -2,6 +2,7 @@
 
 namespace Tms\Bundle\MergeTokenBundle\Mergeable;
 
+use Symfony\Component\DependencyInjection\Container;
 use Tms\Bundle\MergeTokenBundle\Exceptions\UndefinedMergeableObjectException;
 use Tms\Bundle\MergeTokenBundle\Exceptions\MissingMergeableObjectMethodException;
 
@@ -12,18 +13,18 @@ use Tms\Bundle\MergeTokenBundle\Exceptions\MissingMergeableObjectMethodException
  */
 class MergeableObjectHandler
 {
-    protected $tmsMergeTokenTwig;
+    protected $container;
     protected $mergeableObjects;
 
     /**
      * Constructor
      *
-     * @param Twig_Environment $tmsMergeTokenTwig
-     * @param array            $data
+     * @param Container $tmsMergeTokenTwig
+     * @param array     $data
      */
-    public function __construct(\Twig_Environment $tmsMergeTokenTwig, array $data)
+    public function __construct(Container $container, array $data)
     {
-        $this->tmsMergeTokenTwig = $tmsMergeTokenTwig;
+        $this->container = $container;
 
         foreach ($data as $id => $mergeableObjectRaw) {
             $this->setMergeableObject($id, new MergeableObject(
@@ -35,13 +36,23 @@ class MergeableObjectHandler
     }
 
     /**
+     * Get container
+     *
+     * @return Container
+     */
+    public function getContainer()
+    {
+        return $this->container;
+    }
+
+    /**
      * Get Tms merge token twig
      *
      * @return Twig_Environment
      */
     public function getTmsMergeTokenTwig()
     {
-        return $this->tmsMergeTokenTwig;
+        return $this->getContainer()->get('tms_merge_token.twig');
     }
 
     /**
