@@ -8,7 +8,11 @@ services:
 
     tms_merge_token.mergeable_object.handler:
         class: Tms\Bundle\MergeTokenBundle\Mergeable\MergeableObjectHandler
+<<<<<<< HEAD
         arguments: [@twig, %tms_merge_token.mergeable_objects%]
+=======
+        arguments: [@service_container, %tms_merge_token.mergeable_objects%]
+>>>>>>> tmsMergeTokenTwig
 
     tms_merge_token.event.subscriber.serializer:
         class: Tms\Bundle\MergeTokenBundle\Event\Subscriber\SerializerSubscriber
