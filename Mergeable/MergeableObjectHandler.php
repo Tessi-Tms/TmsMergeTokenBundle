@@ -12,19 +12,18 @@ use Tms\Bundle\MergeTokenBundle\Exceptions\MissingMergeableObjectMethodException
  */
 class MergeableObjectHandler
 {
-    protected $twig;
+    protected $tmsMergeTokenTwig;
     protected $mergeableObjects;
 
     /**
      * Constructor
      *
-     * @param Twig_Environment $twig
+     * @param Twig_Environment $tmsMergeTokenTwig
      * @param array            $data
      */
-    public function __construct(\Twig_Environment $twig, array $data)
+    public function __construct(\Twig_Environment $tmsMergeTokenTwig, array $data)
     {
-        $this->twig = clone $twig;
-        $this->twig->setLoader(new \Twig_Loader_String());
+        $this->tmsMergeTokenTwig = $tmsMergeTokenTwig;
 
         foreach ($data as $id => $mergeableObjectRaw) {
             $this->setMergeableObject($id, new MergeableObject(
@@ -36,13 +35,13 @@ class MergeableObjectHandler
     }
 
     /**
-     * Get Twig
+     * Get Tms merge token twig
      *
      * @return Twig_Environment
      */
-    public function getTwig()
+    public function getTmsMergeTokenTwig()
     {
-        return $this->twig;
+        return $this->tmsMergeTokenTwig;
     }
 
     /**
@@ -123,7 +122,7 @@ class MergeableObjectHandler
             throw new MissingMergeableObjectMethodException($object, $setter);
         }
 
-        $mergedValue = $this->getTwig()->render(
+        $mergedValue = $this->getTmsMergeTokenTwig()->render(
             $object->$getter(),
             array($mergeableObject->getId() => $object)
         );
