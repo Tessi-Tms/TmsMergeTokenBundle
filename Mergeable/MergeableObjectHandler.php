@@ -133,12 +133,22 @@ class MergeableObjectHandler
             throw new MissingMergeableObjectMethodException($object, $setter);
         }
 
+        $isArrayValue = false;
+        $value = $object->$getter();
+        if (is_array($value)) {
+            $value = json_encode($value);
+            $isArrayValue = true;
+        }
+
         $mergedValue = $this->getTmsMergeTokenTwig()->render(
-            $object->$getter(),
+            $value,
             array($mergeableObject->getId() => $object)
         );
 
         if ($replace) {
+            if ($isArrayValue) {
+                $mergedValue = json_decode($mergedValue);
+            }
             $object->$setter($mergedValue);
         }
 
