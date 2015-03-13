@@ -64,12 +64,11 @@ class SerializerSubscriber implements EventSubscriberInterface
     public function onPreSerialize(ObjectEvent $event)
     {
         $object = $event->getObject();
-        $type   = $event->getType();
 
         try {
             $mergeableObject = $this
                 ->getMergeableObjectHandler()
-                ->guessMergeableObject($type['name'])
+                ->guessMergeableObject($object)
             ;
             foreach ($mergeableObject->getProperties() as $propertyName => $propertyParameters) {
                 $this

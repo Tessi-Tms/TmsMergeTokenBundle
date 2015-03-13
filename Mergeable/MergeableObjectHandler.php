@@ -3,6 +3,7 @@
 namespace Tms\Bundle\MergeTokenBundle\Mergeable;
 
 use Symfony\Component\DependencyInjection\Container;
+use Doctrine\Common\Util\ClassUtils;
 use Tms\Bundle\MergeTokenBundle\Exceptions\UndefinedMergeableObjectException;
 use Tms\Bundle\MergeTokenBundle\Exceptions\MissingMergeableObjectMethodException;
 
@@ -95,12 +96,13 @@ class MergeableObjectHandler
     /**
      * GuessMergeableObject
      *
-     * @param  string $className
+     * @param  object $object
      * @return MergeableObject
      * @throw  UndefinedMergeableObjectException
      */
-    public function guessMergeableObject($className)
+    public function guessMergeableObject($object)
     {
+        $className = ClassUtils::getClass($object);
         foreach($this->getMergeableObjects() as $mergeableObject) {
             if ($mergeableObject->getClassName() == $className) {
                 return $mergeableObject;
@@ -121,8 +123,7 @@ class MergeableObjectHandler
     public function mergeToken($object, $propertyName, $replace = true)
     {
         $rc = new \ReflectionClass($object);
-
-        $mergeableObject = $this->guessMergeableObject($rc->getName());
+        $mergeableObject = $this->guessMergeableObject($object);
 
         $getter = sprintf('get%s', self::camelize($propertyName));
         $setter = sprintf('set%s', self::camelize($propertyName));
