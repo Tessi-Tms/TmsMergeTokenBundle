@@ -134,11 +134,9 @@ class MergeableObjectHandler
             throw new MissingMergeableObjectMethodException($object, $setter);
         }
 
-        $isArrayValue = false;
         $value = $object->$getter();
-        if (is_array($value)) {
+        if (is_array($value) || is_object($value)) {
             $value = json_encode($value);
-            $isArrayValue = true;
         }
 
         $mergedValue = $this->getTmsMergeTokenTwig()->render(
@@ -146,10 +144,27 @@ class MergeableObjectHandler
             array($mergeableObject->getId() => $object)
         );
 
-        if ($replace) {
-            if ($isArrayValue) {
-                $mergedValue = json_decode($mergedValue);
+        try {
+            $type = $this
+                ->container
+                ->get("jms_serializer")
+                ->getMetadataFactory()
+                ->getMetadataForClass(get_class($object))
+                ->propertyMetadata[$propertyName]
+                ->type['name']
+            ;
+
+            if ('array' === $type) {
+                $decoded = json_decode($mergedValue, true);
+                if (null !== $decoded) {
+                    $mergedValue = $decoded;
+                }
             }
+        } catch (\Exception $e) {
+            continue;
+        }
+
+        if ($replace) {
             $object->$setter($mergedValue);
         }
 
