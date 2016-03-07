@@ -156,9 +156,11 @@ class MergeableObjectHandler
 
             if ('array' === $type) {
                 $decoded = json_decode($mergedValue, true);
-                if (null !== $decoded) {
-                    $mergedValue = $decoded;
+                if (null === $decoded) {
+                    $decoded = array();
                 }
+
+                $mergedValue = $decoded;
             }
         } catch (\Exception $e) {
             continue;
